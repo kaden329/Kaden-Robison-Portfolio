@@ -2,15 +2,29 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Kaden-Robison-Portfolio",
+    "title": "Kaden Robison",
     "section": "",
-    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites.\n\n1 + 1\n\n[1] 2"
+    "text": "Kaden Robison is a third year student at California State Monterey Bay studying Marine Science with a minor in business administration."
+  },
+  {
+    "objectID": "index.html#education",
+    "href": "index.html#education",
+    "title": "Kaden Robison",
+    "section": "Education",
+    "text": "Education\nSonora Union High School | 2023, Sonora, CA\nCal State University Monterey Bay | Current, Marina, CA B.S. Marine Science Minor Business Administration"
+  },
+  {
+    "objectID": "index.html#experience",
+    "href": "index.html#experience",
+    "title": "Kaden Robison",
+    "section": "Experience",
+    "text": "Experience\nMGL2506 Research Cruise | Internship | Summer 2025"
   },
   {
     "objectID": "about.html",
     "href": "about.html",
     "title": "About",
     "section": "",
-    "text": "About this site\n\n1 + 1\n\n[1] 2"
+    "text": "About this site\n\n1 + 1\n\n[1] 2\n\n\nHi, my name is Kaden Robison, and I am a marine science major with a business minor attending California State University Monterey Bay. I am currentley a 3rd year and I plan on graduating in Fall 2026. My favorite marine organism is a cuttlefish as they can change colors and have a cuttlebone that controls their buoyancy."
   }
 ]

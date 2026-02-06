@@ -1,11 +1,30 @@
 ---
-title: "Kaden-Robison-Portfolio"
+title: "Kaden Robison"
+about:
+  template: jolla
+  image: Kr-profile.jpg
+  links:
+    - icon: linkedin
+      text: LinkedIn
+      href: https://www.linkedin.com/in/kaden-robison-933197344/
+    - icon: github
+      text: Github
+      href: https://github.com/kaden329
 ---
 
-This is a Quarto website.
 
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+Kaden Robison is a third year student at California State Monterey Bay studying Marine Science with a minor in business administration.
 
-```{r}
-1 + 1
-```
+## Education
+
+Sonora Union High School | 2023, Sonora, CA
+
+Cal State University Monterey Bay | Current, Marina, CA
+B.S. Marine Science
+Minor Business Administration
+
+## Experience
+
+MGL2506 Research Cruise | Internship | Summer 2025
+
+
