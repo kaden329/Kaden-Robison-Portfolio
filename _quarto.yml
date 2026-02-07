@@ -1,6 +1,6 @@
 project:
   type: website
-  output-dir: docs
+    output-dir: docs
 
 website:
   title: "Kaden-Robison-Portfolio"
@@ -8,14 +8,17 @@ website:
     left:
       - href: index.qmd
         text: Home
-      - href: about.qmd
-        text: "About me"
+      - href: about.qmd 
+      text: "About Me"
+        
 
 format:
   html:
-    theme: cosmo
+    theme:
+      - cosmo
+      - brand
     css: styles.css
     toc: true
 
-editor: source
+editor: Source
 
