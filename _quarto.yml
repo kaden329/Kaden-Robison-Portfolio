@@ -3,7 +3,7 @@ project:
   output-dir: docs
 
 website:
-  title: "Kaden Robison ePortfolio"
+  title: "Kaden Robison Portfolio"
   navbar:
     left:
       - href: index.qmd
