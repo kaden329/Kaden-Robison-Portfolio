@@ -8,7 +8,7 @@ title: "Part 1"
 ## Data Description
 
 ### 1. Identify your data source.
-My data is coming from my internship of the summer of 2025. The MGL2506 research cruise.
+My data is coming from my internship of the summer of 2025. The MGL2506 research cruise. The data could not be included as the file is too large it is on my hard drive.
 
 ### 2. Describe your data, including variables and data types.
 My data is from CTD drops. It includes parameters such as conductivity, temperature, depth, and dissolved oxygen. Some additional parameters were included from testing on the boat such as particulate organic carbon, nutrients, particulate organic phosphorus, insitu chlorophyll, flow cytometry, and DNA analysis. All of this data is compiled into a large excel sheet.
