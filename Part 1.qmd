@@ -1,0 +1,61 @@
+---
+title: "Part 1"
+---
+# Describe your Process
+
+
+
+## Data Description
+
+### 1. Identify your data source.
+My data is coming from my internship of the summer of 2025. The MGL2506 research cruise.
+
+### 2. Describe your data, including variables and data types.
+My data is from CTD drops. It includes parameters such as conductivity, temperature, depth, and dissolved oxygen. Some additional parameters were included from testing on the boat such as particulate organic carbon, nutrients, particulate organic phosphorus, insitu chlorophyll, flow cytometry, and DNA analysis. All of this data is compiled into a large excel sheet.
+
+### 3. Identify the research questions you want to answer.
+The question I want to answer is "Will oxygen predict cell count during upwelling conditions?"
+
+## Data Visualization
+
+### 1. What do you want your final visualizations to look like?
+I want my final visualizations to be a scatter plot shoing a linear relationship to see whether or not oxygen can predict cell count.
+
+### 2. What do you want to highlight on your final visualizations in order to answer your research questions? How do you plan to do that?
+I want to higlight a linear trend or some type of relationship.
+
+### 3. What is missing from your data or would need to change in your data to create these visualizations?
+I would need to filter out all of the other parameters so I am just workign with the variables I want.
+
+## Data Cleaning
+ The answer to at least three of these questions should be “YES” for the data to meet the necessary standards to demonstrate your cleaning. Your data source should not be an already perfectly prepared data set.
+
+
+### 1. Do you need to reformat any variables into different types (e.g. factors, time, dates, strings)? Or remove information from variable values?
+No
+
+### 2. Do you need to deal with any missing data, especially missing data coded other than NA?
+Yes
+
+### 3. Do you need to filter your data? How?
+Yes, I will need to use the select and filter functions to grab my specific variables. 
+
+### 4. Do you need to create any new variables? What variables? How?
+Yes, I will need to create a total cell count column. I will most likely use mutate to make a new variable.
+
+### 5. Do you need to add new data (join) to your data? What data? How?
+Yes, I will need to join the cell data to the ctd data.
+
+### 6. Do you need pivot your data in any way? Why? How?
+No it is already set up in a wide orientation.
+
+### 7. Do you need to summarize any of the variables? Which ones? How?
+Yes, I will need to summarize oxygen and cell count to get averages for depths.
+
+### 8. What other aspects of your data need to be “fixed” in order to make your data visualizations?
+I may make some new data tables specific to this project.
+
+## Most will answer yes to the following for making your programming more efficient using select(), but you should have three other yeses above.
+
+### 9. Are there any variables you can exclude from your data?
+Yes I am going to exclude random variables such as chlorophyll, light, temperature, and POC.
