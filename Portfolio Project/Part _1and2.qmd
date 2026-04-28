@@ -1,6 +1,11 @@
 ---
-title: "Part_1and2"
+title: "Portfolio Project"
 format: html
+execute: 
+  echo: false
+  warning: false
+  message: false
+embed-resources: true
 ---
 # Describe your Process
 
