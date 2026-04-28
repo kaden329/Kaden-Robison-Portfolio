@@ -1,5 +1,6 @@
 ---
-title: "Part 1"
+title: "Part_1and2"
+format: html
 ---
 # Describe your Process
 
@@ -8,7 +9,7 @@ title: "Part 1"
 ## Data Description
 
 ### 1. Identify your data source.
-My data is coming from my internship of the summer of 2025. The MGL2506 research cruise.
+My data is coming from my internship of the summer of 2025. The MGL2506 research cruise. The data could not be included as the file is too large it is on my hard drive.
 
 ### 2. Describe your data, including variables and data types.
 My data is from CTD drops. It includes parameters such as conductivity, temperature, depth, and dissolved oxygen. Some additional parameters were included from testing on the boat such as particulate organic carbon, nutrients, particulate organic phosphorus, insitu chlorophyll, flow cytometry, and DNA analysis. All of this data is compiled into a large excel sheet.
@@ -59,3 +60,105 @@ I may make some new data tables specific to this project.
 
 ### 9. Are there any variables you can exclude from your data?
 Yes I am going to exclude random variables such as chlorophyll, light, temperature, and POC.
+
+
+---
+title: "Cleaning Data"
+
+---
+
+# Installing Packages
+```{r}
+#install.packages("oce")
+#install.packages("tidyverse")
+library(tidyverse)
+library(dplyr)
+library(stringr)
+
+```
+
+
+
+# Setting Working Directory
+```{r}
+setwd("C:/Users/nedak/Downloads/STATS210/FInal Portfolio/Portfolio/Kaden-Robison-Portfolio")
+```
+
+# Loading Data
+```{r}
+ctd_files <- list.files(path = "D:/CTD/", pattern = "\\_clean.csv$", full.names = TRUE)
+
+ctd_data <- ctd_files %>%
+  map_df(read_csv, .id = "Cast")
+```
+
+# Grab Specific Columns
+```{r}
+ctd_subset <- ctd_data |> 
+  select(salinity = `sal00: Salinity, Practical [PSU]`,
+    temperature = `t090C: Temperature [ITS-90, deg C]`,
+    oxygen = `sbox0Mm/Kg: Oxygen, SBE 43 [umol/kg]`,
+    pressure = `depSM: Depth [salt water, m]`,
+    station = `Cast`
+  )
+
+#write.csv(ctd_subset, "C:/Users/nedak/Downloads/STATS210/FInal Portfolio/Portfolio/Kaden-Robison-Portfolio/Data/ctd_subset.csv", row.names = FALSE)
+
+
+metadata <- read_csv("Data/mgl2506_castmetadata.csv")
+
+ctd_subset <- ctd_subset |> 
+  mutate(station = as.character(station))
+
+metadata <- metadata |> 
+  mutate(
+    station = as.character(station),
+    station = str_trim(station)   # removes spaces/newlines
+  )
+```
+
+
+# Joining Metadata
+```{r}
+ctd_meta <- ctd_subset |> 
+  left_join(metadata, by = "station") |> 
+  select(all_of(names(metadata)), everything())
+
+ctd_meta <- ctd_meta |> 
+  drop_na(station, salinity, temperature, pressure)
+
+ctd_meta <- ctd_meta |>  
+  filter(station != "40")
+
+ctd_meta <- ctd_meta %>%
+  rename(depth = `ml_depth_[m]`)
+
+#write.csv(ctd_meta, "C:/Users/nedak/Downloads/STATS210/FInal Portfolio/Portfolio/Kaden-Robison-Portfolio/Data/ctd_meta.csv", row.names = FALSE)
+```
+
+
+# Averaging Oxygen
+```{r}
+ctd_avg <- ctd_meta %>%
+  mutate(depth_bin = round(depth / 10) * 10) %>%  # 10 m bins   
+  group_by(depth_bin) %>%
+  summarise(oxygen = mean(oxygen, na.rm = TRUE)) %>%
+  ungroup()
+```
+
+
+# First Visualizations
+```{r}
+ggplot(ctd_avg, aes(x = oxygen, y = depth_bin)) +
+  geom_path(color = "blue", linewidth = 1.2) +   
+  geom_point(size = 2) +                     
+  scale_y_reverse() +
+  labs(
+    title = "Average Oxygen Profile",
+    x = "Mean Oxygen (µmol/kg)",
+    y = "Depth (m)"
+  ) +
+  theme_minimal() +
+  theme(aspect.ratio = 1)
+```
+
