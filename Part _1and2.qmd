@@ -93,13 +93,22 @@ ctd_data <- ctd_files %>%
   map_df(read_csv, .id = "Cast")
 ```
 
+##Slice data
+```{r}
+sliced_ctd_data <- ctd_data |> 
+slice_sample(n = 10)
+
+#write.csv(sliced_ctd_data, "sliced_raw_data", row.names = FALSE)
+```
+
+
 # Grab Specific Columns
 ```{r}
 ctd_subset <- ctd_data |> 
   select(salinity = `sal00: Salinity, Practical [PSU]`,
     temperature = `t090C: Temperature [ITS-90, deg C]`,
     oxygen = `sbox0Mm/Kg: Oxygen, SBE 43 [umol/kg]`,
-    pressure = `depSM: Depth [salt water, m]`,
+    depth = `depSM: Depth [salt water, m]`,
     station = `Cast`
   )
 
@@ -126,40 +135,53 @@ ctd_meta <- ctd_subset |>
   select(all_of(names(metadata)), everything())
 
 ctd_meta <- ctd_meta |> 
-  drop_na(station, salinity, temperature, pressure)
+  drop_na(station, salinity, temperature, depth)
 
 ctd_meta <- ctd_meta |>  
   filter(station != "40")
 
-ctd_meta <- ctd_meta %>%
-  rename(depth = `ml_depth_[m]`)
 
-#write.csv(ctd_meta, "C:/Users/nedak/Downloads/STATS210/FInal Portfolio/Portfolio/Kaden-Robison-Portfolio/Data/ctd_meta.csv", row.names = FALSE)
+
+ctd_meta <- ctd_meta |> 
+  rename(chlorophyll_max = `cmax_[m]`)
+
+ctd_meta <- ctd_meta |> 
+  select(date, depth, station, chlorophyll_max, temperature, oxygen )
+
+sliced_ctdmeta_data <- ctd_meta |> 
+  slice_sample(n = 10)
+
+write.csv(sliced_ctdmeta_data, "C:/Users/nedak/Downloads/STATS210/FInal Portfolio/Portfolio/Kaden-Robison-Portfolio/Sliced Data/Sliced_ctdmeta_data.csv", row.names = FALSE)
+
+write.csv(ctd_meta, "C:/Users/nedak/Downloads/STATS210/FInal Portfolio/Portfolio/Kaden-Robison-Portfolio/Data/ctd_meta.csv", row.names = FALSE)
 ```
+
 
 
 # Averaging Oxygen
 ```{r}
 ctd_avg <- ctd_meta %>%
-  mutate(depth_bin = round(depth / 10) * 10) %>%  # 10 m bins   
-  group_by(depth_bin) %>%
-  summarise(oxygen = mean(oxygen, na.rm = TRUE)) %>%
-  ungroup()
+  mutate(depth_bin = ceiling(depth / 10) * 10) %>%
+  group_by(depth_bin) %>%   # <-- ONLY group by depth_bin
+  summarise(
+    oxygen = mean(oxygen, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  arrange(depth_bin)   
+write.csv(ctd_avg, "C:/Users/nedak/Downloads/STATS210/FInal Portfolio/Portfolio/Kaden-Robison-Portfolio/Sliced Data/ctd_avg.csv", row.names = FALSE)
 ```
 
 
 # First Visualizations
 ```{r}
 ggplot(ctd_avg, aes(x = oxygen, y = depth_bin)) +
-  geom_path(color = "blue", linewidth = 1.2) +   
-  geom_point(size = 2) +                     
+  geom_path(linewidth = 1.2, color = "blue") +
   scale_y_reverse() +
   labs(
     title = "Average Oxygen Profile",
     x = "Mean Oxygen (µmol/kg)",
     y = "Depth (m)"
   ) +
-  theme_minimal() +
-  theme(aspect.ratio = 1)
+  theme_minimal()
 ```
 
