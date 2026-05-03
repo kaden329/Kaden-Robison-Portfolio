@@ -1,0 +1,11 @@
+---
+title: "Example Work"
+---
+## My Work
+
+Here are some of the projects and work I've done.
+
+### Project 1
+- Description of what you did
+- Tools used (Python, R, etc.)
+- Link to project
