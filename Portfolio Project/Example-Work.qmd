@@ -1,0 +1,143 @@
+---
+title: "Example Work"
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+## My Work
+
+Here is one of the projects  I've done.
+
+# Project: Analyzing CTD Data
+
+## Data Description
+This data is coming from an internship over the summer of 2025. The MGL2506 research cruise. The data could not be included as the file is too large it is on my hard drive and is private data so it will not beincluded only the visualizations will be.
+This data is from CTD drops. It includes parameters such as conductivity, temperature, depth, and dissolved oxygen. Some additional parameters were included from testing on the boat such as particulate organic carbon, nutrients, particulate organic phosphorus, insitu chlorophyll, flow cytometry, and DNA analysis. All of this data is compiled into a large excel sheet. Which is what I cleaned and filtered down to the parameters that I wanted. I then made serveral visualizations of the data.
+
+
+```{r}
+#| include: false
+#install.packages("oce")
+#install.packages("tidyverse")
+library(tidyverse)
+library(dplyr)
+library(stringr)
+
+```
+
+
+
+
+```{r}
+ctd_files <- list.files(path = "D:/CTD/", pattern = "\\_clean.csv$", full.names = TRUE)
+
+ctd_data <- ctd_files %>%
+  map_df(read_csv, .id = "Cast")
+```
+
+```{r}
+sliced_ctd_data <- ctd_data |> 
+slice_sample(n = 10)
+
+#write.csv(sliced_ctd_data, "sliced_raw_data", row.names = FALSE)
+```
+
+
+```{r}
+ctd_subset <- ctd_data |> 
+  select(salinity = `sal00: Salinity, Practical [PSU]`,
+    temperature = `t090C: Temperature [ITS-90, deg C]`,
+    oxygen = `sbox0Mm/Kg: Oxygen, SBE 43 [umol/kg]`,
+    depth = `depSM: Depth [salt water, m]`,
+    station = `Cast`
+  )
+
+#write.csv(ctd_subset, "C:/Users/nedak/Downloads/STATS210/FInal Portfolio/Portfolio/Kaden-Robison-Portfolio/Data/ctd_subset.csv", row.names = FALSE)
+
+
+metadata <- read_csv("C:/Users/nedak/Downloads/STATS210/FInal Portfolio/Portfolio/Kaden-Robison-Portfolio/Data/mgl2506_castmetadata.csv")
+
+ctd_subset <- ctd_subset |> 
+  mutate(station = as.character(station))
+
+metadata <- metadata |> 
+  mutate(
+    station = as.character(station),
+    station = str_trim(station)   # removes spaces/newlines
+  )
+```
+
+
+```{r}
+ctd_meta <- ctd_subset |> 
+  left_join(metadata, by = "station") |> 
+  select(all_of(names(metadata)), everything())
+
+ctd_meta <- ctd_meta |> 
+  drop_na(station, salinity, temperature, depth)
+
+ctd_meta <- ctd_meta |>  
+  filter(station != "40")
+
+
+
+ctd_meta <- ctd_meta |> 
+  rename(chlorophyll_max = `cmax_[m]`)
+
+ctd_meta <- ctd_meta |> 
+  select(date, depth, station, chlorophyll_max, temperature, oxygen )
+
+sliced_ctdmeta_data <- ctd_meta |> 
+  slice_sample(n = 10)
+
+#write.csv(sliced_ctdmeta_data, "C:/Users/nedak/Downloads/STATS210/FInal Portfolio/Portfolio/Kaden-Robison-Portfolio/Sliced Data/Sliced_ctdmeta_data.csv", row.names = FALSE)
+
+#write.csv(ctd_meta, "C:/Users/nedak/Downloads/STATS210/FInal Portfolio/Portfolio/Kaden-Robison-Portfolio/Data/ctd_meta.csv", row.names = FALSE)
+```
+
+
+
+```{r}
+ctd_avg <- ctd_meta |> 
+  mutate(depth_bin = ceiling(depth / 10) * 10) %>%
+  group_by(depth_bin) |> 
+  summarise(
+    oxygen = mean(oxygen, na.rm = TRUE),
+    chlorophyll_max = mean(chlorophyll_max, na.rm = TRUE),
+    .groups = "drop"
+  ) |> 
+  arrange(depth_bin) 
+#write.csv(ctd_avg, "Sliced Data/ctd_avg.csv", row.names = FALSE)
+```
+
+
+## Visualization 1
+```{r}
+ggplot(ctd_avg, aes(x = oxygen, y = depth_bin)) +
+  geom_path(linewidth = 1.2, color = "blue") +
+  scale_y_reverse() +
+  labs(
+    title = "Average Oxygen Profile",
+    x = "Mean Oxygen (µmol/kg)",
+    y = "Depth (m)"
+  ) +
+  theme_minimal()
+```
+**Figure 1** Vertical profile of mean dissolved oxygen (µmol/kg) as a function of depth (m). Oxygen concentrations are highest near the surface, decrease to a minimum at intermediate depths (~500–1000 m), and then gradually increase again in deeper waters, reflecting typical oceanic oxygen distribution patterns driven by biological activity and water mass circulation.
+
+
+## Visualization 2
+```{r}
+ggplot(ctd_avg, aes(x = chlorophyll_max, y = depth_bin)) +
+  geom_path(linewidth = 1.2, color = "green") +
+  scale_y_reverse() +
+  labs(
+    title = "Average Chlorophyll Max Profile",
+    x = "Chlorophyll Max",
+    y = "Depth (m)"
+  ) +
+  theme_minimal()
+```
+**Figure 2** Vertical profile of maximum chlorophyll concentration as a function of depth (m). Chlorophyll values are highest in the upper ocean, indicating increased phytoplankton biomass in the euphotic zone, and generally decrease with depth as light availability diminishes. Variability at deeper depths likely reflects data noise or localized signals rather than sustained biological production.
+
