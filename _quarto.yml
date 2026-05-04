@@ -3,15 +3,15 @@ project:
   output-dir: docs
 
 website:
-  title: "Kaden Robison Portfolio"
+  title: "Kaden-Robison-Portfolio"
   navbar:
     left:
       - href: index.qmd
-         text: Home
+        text: Home
       - href: about.qmd
-         text: About
-      - href: Example-Work.qmd
-         text: Example Work
+        text: About
+      - href: Portfolio Project/Example-Work.qmd
+        text: Example Work
 
 format:
   html:
