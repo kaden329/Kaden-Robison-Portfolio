@@ -85,10 +85,6 @@ library(stringr)
 
 
 
-# Setting Working Directory
-```{r}
-setwd("C:/Users/nedak/Downloads/STATS210/FInal Portfolio/Portfolio/Kaden-Robison-Portfolio")
-```
 
 # Loading Data
 ```{r}
@@ -120,7 +116,7 @@ ctd_subset <- ctd_data |>
 #write.csv(ctd_subset, "C:/Users/nedak/Downloads/STATS210/FInal Portfolio/Portfolio/Kaden-Robison-Portfolio/Data/ctd_subset.csv", row.names = FALSE)
 
 
-metadata <- read_csv("Data/mgl2506_castmetadata.csv")
+metadata <- read_csv("C:/Users/nedak/Downloads/STATS210/FInal Portfolio/Portfolio/Kaden-Robison-Portfolio/Data/mgl2506_castmetadata.csv")
 
 ctd_subset <- ctd_subset |> 
   mutate(station = as.character(station))
@@ -156,24 +152,25 @@ ctd_meta <- ctd_meta |>
 sliced_ctdmeta_data <- ctd_meta |> 
   slice_sample(n = 10)
 
-write.csv(sliced_ctdmeta_data, "C:/Users/nedak/Downloads/STATS210/FInal Portfolio/Portfolio/Kaden-Robison-Portfolio/Sliced Data/Sliced_ctdmeta_data.csv", row.names = FALSE)
+#write.csv(sliced_ctdmeta_data, "C:/Users/nedak/Downloads/STATS210/FInal Portfolio/Portfolio/Kaden-Robison-Portfolio/Sliced Data/Sliced_ctdmeta_data.csv", row.names = FALSE)
 
-write.csv(ctd_meta, "C:/Users/nedak/Downloads/STATS210/FInal Portfolio/Portfolio/Kaden-Robison-Portfolio/Data/ctd_meta.csv", row.names = FALSE)
+#write.csv(ctd_meta, "C:/Users/nedak/Downloads/STATS210/FInal Portfolio/Portfolio/Kaden-Robison-Portfolio/Data/ctd_meta.csv", row.names = FALSE)
 ```
 
 
 
 # Averaging Oxygen
 ```{r}
-ctd_avg <- ctd_meta %>%
+ctd_avg <- ctd_meta |> 
   mutate(depth_bin = ceiling(depth / 10) * 10) %>%
-  group_by(depth_bin) %>%   # <-- ONLY group by depth_bin
+  group_by(depth_bin) |> 
   summarise(
     oxygen = mean(oxygen, na.rm = TRUE),
+    chlorophyll_max = mean(chlorophyll_max, na.rm = TRUE),
     .groups = "drop"
-  ) %>%
-  arrange(depth_bin)   
-write.csv(ctd_avg, "C:/Users/nedak/Downloads/STATS210/FInal Portfolio/Portfolio/Kaden-Robison-Portfolio/Sliced Data/ctd_avg.csv", row.names = FALSE)
+  ) |> 
+  arrange(depth_bin) 
+write.csv(ctd_avg, "Sliced Data/ctd_avg.csv", row.names = FALSE)
 ```
 
 
@@ -185,6 +182,18 @@ ggplot(ctd_avg, aes(x = oxygen, y = depth_bin)) +
   labs(
     title = "Average Oxygen Profile",
     x = "Mean Oxygen (µmol/kg)",
+    y = "Depth (m)"
+  ) +
+  theme_minimal()
+```
+# Second Visualization
+```{r}
+ggplot(ctd_avg, aes(x = chlorophyll_max, y = depth_bin)) +
+  geom_path(linewidth = 1.2, color = "green") +
+  scale_y_reverse() +
+  labs(
+    title = "Average Chlorophyll Max Profile",
+    x = "Chlorophyll Max",
     y = "Depth (m)"
   ) +
   theme_minimal()
