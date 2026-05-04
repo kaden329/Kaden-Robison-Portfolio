@@ -3,9 +3,16 @@ title: "Example Work"
 ---
 ## My Work
 
-Here are some of the projects and work I've done.
+Here is one of the projects  I've done.
 
-### Project 1
-- Description of what you did
-- Tools used (Python, R, etc.)
-- Link to project
+# Project: Analyzing CTD Data
+
+## Data Description
+This data is coming from an internship over the summer of 2025. The MGL2506 research cruise. The data could not be included as the file is too large it is on my hard drive and is private data so it will not beincluded only the visualizations will be.
+This data is from CTD drops. It includes parameters such as conductivity, temperature, depth, and dissolved oxygen. Some additional parameters were included from testing on the boat such as particulate organic carbon, nutrients, particulate organic phosphorus, insitu chlorophyll, flow cytometry, and DNA analysis. All of this data is compiled into a large excel sheet. Which is what I cleaned and filtered down to the parameters that I wanted. I then made serveral visualizations of the data.
+
+## Visualization 1
+
+
+## Visualization 2
+
