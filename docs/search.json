@@ -208,5 +208,40 @@
     "title": "Example Work",
     "section": "Visualization 2",
     "text": "Visualization 2\n\n\n\n\n\n\n\n\n\nFigure 2 Vertical profile of maximum chlorophyll concentration as a function of depth (m). Chlorophyll values are highest in the upper ocean, indicating increased phytoplankton biomass in the euphotic zone, and generally decrease with depth as light availability diminishes. Variability at deeper depths likely reflects data noise or localized signals rather than sustained biological production."
+  },
+  {
+    "objectID": "Example-Work.html",
+    "href": "Example-Work.html",
+    "title": "Example Work",
+    "section": "",
+    "text": "Here is one of the projects I’ve done."
+  },
+  {
+    "objectID": "Example-Work.html#my-work",
+    "href": "Example-Work.html#my-work",
+    "title": "Example Work",
+    "section": "",
+    "text": "Here is one of the projects I’ve done."
+  },
+  {
+    "objectID": "Example-Work.html#data-description",
+    "href": "Example-Work.html#data-description",
+    "title": "Example Work",
+    "section": "Data Description",
+    "text": "Data Description\nThis data is coming from an internship over the summer of 2025. The MGL2506 research cruise. The data could not be included as the file is too large it is on my hard drive and is private data so it will not beincluded only the visualizations will be. This data is from CTD drops. It includes parameters such as conductivity, temperature, depth, and dissolved oxygen. Some additional parameters were included from testing on the boat such as particulate organic carbon, nutrients, particulate organic phosphorus, insitu chlorophyll, flow cytometry, and DNA analysis. All of this data is compiled into a large excel sheet. Which is what I cleaned and filtered down to the parameters that I wanted. I then made serveral visualizations of the data."
+  },
+  {
+    "objectID": "Example-Work.html#visualization-1",
+    "href": "Example-Work.html#visualization-1",
+    "title": "Example Work",
+    "section": "Visualization 1",
+    "text": "Visualization 1\n\n\n\n\n\n\n\n\n\nFigure 1 Vertical profile of mean dissolved oxygen (µmol/kg) as a function of depth (m). Oxygen concentrations are highest near the surface, decrease to a minimum at intermediate depths (~500–1000 m), and then gradually increase again in deeper waters, reflecting typical oceanic oxygen distribution patterns driven by biological activity and water mass circulation."
+  },
+  {
+    "objectID": "Example-Work.html#visualization-2",
+    "href": "Example-Work.html#visualization-2",
+    "title": "Example Work",
+    "section": "Visualization 2",
+    "text": "Visualization 2\n\n\n\n\n\n\n\n\n\nFigure 2 Vertical profile of maximum chlorophyll concentration as a function of depth (m). Chlorophyll values are highest in the upper ocean, indicating increased phytoplankton biomass in the euphotic zone, and generally decrease with depth as light availability diminishes. Variability at deeper depths likely reflects data noise or localized signals rather than sustained biological production."
   }
 ]
