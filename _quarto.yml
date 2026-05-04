@@ -10,7 +10,7 @@ website:
         text: Home
       - href: about.qmd
         text: About
-      - href: Example-Work.qmd"
+      - href: Example-Work.qmd
         text: Example Work
 
 format:
