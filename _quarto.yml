@@ -7,17 +7,15 @@ website:
   navbar:
     left:
       - href: index.html
-        text: Home
+        text: "Home"
       - href: about.html
-        text: About
+        text: "About Me"
       - href: Example-Work.html
-        text: Example Work
+        text: "Example Project"
 
 format:
   html:
-    theme:
-      - cosmo
-      - brand
+    theme:cosmo
     css: styles.css
     toc: true
 
