@@ -6,16 +6,16 @@ website:
   title: "Kaden-Robison-Portfolio"
   navbar:
     left:
-      - href: index.html
+      - href: index.qmd
         text: "Home"
-      - href: about.html
+      - href: about.qmd
         text: "About Me"
-      - href: Example-Work.html
+      - href: Example-Work.qmd
         text: "Example Project"
 
 format:
   html:
-    theme:cosmo
+    theme: cosmo
     css: styles.css
     toc: true
 
